@@ -56,7 +56,8 @@ np.mean(cross_val_score(lm, X_train , y_train , scoring="neg_mean_absolute_error
 
 
 
-
+lm_l=Lasso(alpha=0.15)
+lm_l.fit(X_train , y_train)
 
 
 # lasso regression 
@@ -96,5 +97,18 @@ gs = GridSearchCV(rf, parameters , scoring="neg_mean_absolute_error",cv=3 )
 
 
 gs.fit(X_train, y_train)
+
+gs.best_score_
+
+
+#test
+tpred_lm=lm.predict(X_test)
+tpred_lml = lm_l.predict(X_test)
+tpred_rf = gs.best_estimator_.predict(X_test)
+
+
+mean_absolute_error(y_test, tpred_lm )
+mean_absolute_error(y_test, tpred_lml)
+mean_absolute_error(y_test, tpred_rf )
 
 
